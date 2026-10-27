@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chaos Pad MV</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage-panel" aria-label="MV preview">
+        <div class="topbar">
+          <div>
+            <h1>Chaos Pad MV</h1>
+            <p>touch / drag / trigger / record</p>
+          </div>
+          <div class="status-pill" id="status">READY</div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="stage" width="1280" height="720"></canvas>
+          <video id="sourceVideo" playsinline muted loop hidden></video>
+        </div>
+
+        <div class="transport">
+          <button id="playBtn" class="primary">PLAY</button>
+          <button id="recordBtn">REC</button>
+          <button id="stopBtn">STOP</button>
+          <a id="downloadLink" class="download" hidden>SAVE</a>
+        </div>
+      </section>
+
+      <aside class="control-panel" aria-label="MV controls">
+        <section class="pad-section">
+          <h2>KAOSS XY</h2>
+          <div id="xyPad" class="xy-pad" role="application" aria-label="Effect XY pad">
+            <div class="xy-cross x"></div>
+            <div class="xy-cross y"></div>
+            <div id="xyDot" class="xy-dot"></div>
+            <span>DRAG</span>
+          </div>
+          <div class="readout">
+            <span id="xRead">CUT 50</span>
+            <span id="yRead">BEND 50</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>TRIGGER</h2>
+          <div class="trigger-grid">
+            <button class="trigger" data-trigger="strobe">STROBE</button>
+            <button class="trigger" data-trigger="freeze">FREEZE</button>
+            <button class="trigger" data-trigger="mirror">MIRROR</button>
+            <button class="trigger" data-trigger="invert">INVERT</button>
+            <button class="trigger" data-trigger="slice">SLICE</button>
+            <button class="trigger" data-trigger="burn">BURN</button>
+            <button class="trigger" data-trigger="type">TYPE</button>
+            <button class="trigger" data-trigger="random">RANDOM</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>SOURCE</h2>
+          <div class="audio-bank" aria-label="Audio sample bank">
+            <button class="sample" data-src="samples/mutedai.wav">A1</button>
+            <button class="sample" data-src="samples/mutedai-2.wav">A2</button>
+            <button class="sample" data-src="samples/mutedai-3.wav">A3</button>
+            <button class="sample" data-src="samples/mutedai-4.wav">A4</button>
+            <button class="sample" data-src="samples/mutedai-5.wav">A5</button>
+            <button class="sample" data-src="samples/mutedai-6.wav">A6</button>
+            <button class="sample" data-src="samples/9.wav">A7</button>
+          </div>
+          <label class="dropzone">
+            <input id="audioInput" type="file" accept="audio/*" />
+            <span>AUDIO</span>
+            <small id="audioName">none</small>
+          </label>
+          <label class="dropzone">
+            <input id="visualInput" type="file" accept="video/*,image/*" multiple />
+            <span>VISUALS</span>
+            <small id="visualName">none</small>
+          </label>
+        </section>
+
+        <section>
+          <h2>RHYTHM</h2>
+          <div class="rhythm-controls">
+            <button id="rhythmBtn">SEQ</button>
+            <button id="clearSeqBtn">CLEAR</button>
+            <label class="tempo-control">
+              <span id="tempoRead">120 BPM</span>
+              <input id="tempoInput" type="range" min="60" max="190" value="120" />
+            </label>
+          </div>
+          <div id="sequencer" class="sequencer" aria-label="16 step rhythm sequencer"></div>
+        </section>
+
+        <section>
+          <h2>TONE</h2>
+          <div class="segmented" role="group" aria-label="Color mood">
+            <button class="mode active" data-mode="chlorophyll">GREEN</button>
+            <button class="mode" data-mode="ash">ASH</button>
+            <button class="mode" data-mode="alarm">RED</button>
+          </div>
+          <label>
+            <span>MESSAGE</span>
+            <input id="captionText" type="text" value="SAVE THE FORESTS" />
+          </label>
+          <label class="check-row">
+            <input id="scanlines" type="checkbox" checked />
+            <span>SCAN</span>
+          </label>
+          <label class="check-row">
+            <input id="posterize" type="checkbox" checked />
+            <span>POSTER</span>
+          </label>
+        </section>
+
+        <input id="cutRate" type="range" min="1" max="16" value="9" hidden />
+        <input id="gridSize" type="range" min="2" max="10" value="5" hidden />
+        <input id="noiseLevel" type="range" min="0" max="100" value="38" hidden />
+      </aside>
+    </main>
+
+    <audio id="audio"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>
